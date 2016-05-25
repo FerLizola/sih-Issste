@@ -7,12 +7,15 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,6 +36,7 @@ public class Incapacidad extends javax.swing.JFrame {
     public Incapacidad() {
         initComponents();
         this.setSize(992, 700);
+        txtrfc.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
     }
 
     public void setRFCMed(String rfc){
@@ -103,7 +107,6 @@ public class Incapacidad extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("/home/abril/Descargas/1463377402_file-pdf.png")); // NOI18N
         jButton1.setText("Crear PDF");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +146,7 @@ public class Incapacidad extends javax.swing.JFrame {
 
         jLabel6.setText("Apellido");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(20, 260, 80, 17);
+        jLabel6.setBounds(420, 320, 80, 17);
 
         jLabel7.setText("Nombre(s)");
         getContentPane().add(jLabel7);
@@ -161,7 +164,7 @@ public class Incapacidad extends javax.swing.JFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(20, 350, 100, 17);
         getContentPane().add(txtAp);
-        txtAp.setBounds(140, 260, 240, 27);
+        txtAp.setBounds(510, 310, 240, 27);
 
         jLabel10.setText("Diagnostico");
         getContentPane().add(jLabel10);
@@ -246,9 +249,15 @@ public class Incapacidad extends javax.swing.JFrame {
 
         jLabel14.setText("RFC");
         getContentPane().add(jLabel14);
-        jLabel14.setBounds(420, 310, 26, 17);
+        jLabel14.setBounds(20, 260, 26, 17);
+
+        txtrfc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtrfcKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtrfc);
-        txtrfc.setBounds(530, 300, 240, 27);
+        txtrfc.setBounds(140, 260, 240, 27);
 
         jLabel23.setText("RFC");
         getContentPane().add(jLabel23);
@@ -463,6 +472,50 @@ public class Incapacidad extends javax.swing.JFrame {
     private void txtRFCMedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtRFCMedMouseClicked
        txtRFCMed.setText(rfc);
     }//GEN-LAST:event_txtRFCMedMouseClicked
+
+    private void txtrfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtrfcKeyTyped
+        String a= txtrfc.getText();
+        if (a.length()==13){
+            Connection miCon = (new Conexion_BD()).conexion();
+        if(miCon!=null){
+            try{
+                Statement stmt = miCon.createStatement();
+                String sql = "select * from Derechohabiente where RFC_Derechoh='"+a+"'";
+                ResultSet r=stmt.executeQuery(sql);
+                if(r.next()){
+                    txtName.setText(r.getString("Nombre_Derechoh"));
+                    txtAp.setText(r.getString("APaterno_Derechoh")+" "+r.getString("AMaterno_Derechoh"));
+                    int id=r.getInt("id_Clinica");
+                    sql="select * from Clinica where id_Clinica='"+id+"'";
+                    r=stmt.executeQuery(sql);
+                    if(r.next()){
+                        txtUM.setText(r.getString("Nombre_Clinica"));
+                    }
+                }
+                if(!txtRFCMed.getText().equals(null)){
+                    sql="select * from Personal where RFC_Personal='"+txtRFCMed.getText()+"'";
+                    r=stmt.executeQuery(sql);
+                    if(r.next()){
+                        txtMedico.setText(r.getString("Nombre_Personal")+" "+r.getString("APaterno_Personal"));
+                    }
+                
+                }
+                miCon.close();
+                        
+            }catch(Exception e){
+        
+                JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            
+        }
+        else{
+            txtName.setText("");
+            txtAp.setText("");
+        }
+        
+            
+    }//GEN-LAST:event_txtrfcKeyTyped
 
     public boolean guardar(){
           Connection miCon = (new Conexion_BD()).conexion();

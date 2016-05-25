@@ -27,9 +27,6 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/home/abril/Descargas/1463377402_file-pdf.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Crear PDF"/>
       </Properties>
       <Events>
@@ -100,7 +97,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="20" y="260" width="80" height="-1"/>
+          <AbsoluteConstraints x="420" y="320" width="80" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -151,7 +148,7 @@
     <Component class="javax.swing.JTextField" name="txtAp">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="260" width="240" height="-1"/>
+          <AbsoluteConstraints x="510" y="310" width="240" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -378,14 +375,17 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="420" y="310" width="-1" height="-1"/>
+          <AbsoluteConstraints x="20" y="260" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtrfc">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtrfcKeyTyped"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="530" y="300" width="240" height="-1"/>
+          <AbsoluteConstraints x="140" y="260" width="240" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
