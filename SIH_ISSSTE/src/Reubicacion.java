@@ -21,12 +21,12 @@ public class Reubicacion extends javax.swing.JFrame {
      */
     public Reubicacion() {
         initComponents();
-        clinica();
+        clinica();//desde que inicia la ventana se cargan las clinicas
     }
     void setRFC(String rfc){
         this.rfc=rfc;
     }
-    void clinica(){
+    void clinica(){//saca ls clinica(?)inicias
         Connection miCon=(new ConexionDB().conexion());
         if(miCon!=null){
             try{

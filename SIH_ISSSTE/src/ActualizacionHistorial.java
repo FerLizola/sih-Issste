@@ -45,8 +45,6 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObs = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtFarmaco = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -57,12 +55,12 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtPronostico = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
-        txtPresentacion = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -99,12 +97,6 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(780, 10, 186, 200);
 
-        jLabel4.setText("Farmaco Recomendado");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 480, 190, 17);
-        getContentPane().add(txtFarmaco);
-        txtFarmaco.setBounds(90, 510, 210, 40);
-
         jLabel5.setText("Indicaciones");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(640, 220, 140, 17);
@@ -117,7 +109,7 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(190, 590, 110, 36);
+        jButton1.setBounds(260, 590, 110, 40);
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/1459970446_button_cancel.png"))); // NOI18N
         jButton2.setText("Cancelar");
@@ -127,7 +119,7 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(340, 590, 130, 40);
+        jButton2.setBounds(390, 590, 130, 40);
 
         jLabel6.setText("Historial");
         getContentPane().add(jLabel6);
@@ -162,12 +154,6 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(640, 260, 262, 87);
 
-        jLabel8.setText("Presentacion del Farmaco");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(310, 470, 200, 17);
-        getContentPane().add(txtPresentacion);
-        txtPresentacion.setBounds(370, 510, 190, 40);
-
         jLabel9.setText("Nombre");
         getContentPane().add(jLabel9);
         jLabel9.setBounds(30, 20, 150, 17);
@@ -179,6 +165,20 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
         jLabel11.setBounds(320, 20, 57, 17);
         getContentPane().add(jTextField2);
         jTextField2.setBounds(410, 10, 200, 27);
+
+        jButton4.setText("Generar Receta");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4);
+        jButton4.setBounds(120, 590, 120, 40);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/whynot.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(0, 0, 990, 640);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -217,7 +217,6 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
         String diagnostico= txtDiag.getText(); 
          String observaciones= txtObs.getText(); 
          String pronostico= txtPronostico.getText(); 
-         String farmaco = txtFarmaco.getText();
          int historial=Integer.parseInt(txtHist.getText());
         
         Connection miCon = (new Conexion_BD()).conexion();
@@ -225,7 +224,7 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
             try{
                Statement stmt = miCon.createStatement();
                String sql = "Update HistorialClinico set PadecActual_HistorialClinico='"+diagnostico+"', Diagnostico_HistorialClinico ='"+
-                       observaciones+"', Farmacol_HistorialClinico = '"+farmaco+"', Pronosticos_HistorialClinico = '"+pronostico+"' where  id_HistorialClinico = '"+
+                       observaciones+"', Pronosticos_HistorialClinico = '"+pronostico+"' where  id_HistorialClinico = '"+
                        historial+"';";
               stmt.executeUpdate(sql);
               miCon.close();
@@ -244,6 +243,11 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
     private void txtDiagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiagActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDiagActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Generar_Recetas2 gr=new Generar_Recetas2();
+        gr.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     
     public static void main(String args[]) {
@@ -283,6 +287,7 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -291,17 +296,14 @@ public class ActualizacionHistorial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField txtDiag;
-    private javax.swing.JTextField txtFarmaco;
     private javax.swing.JTextField txtHist;
     private javax.swing.JTextArea txtObs;
-    private javax.swing.JTextField txtPresentacion;
     private javax.swing.JTextArea txtPronostico;
     private javax.swing.JTextField txtRFC;
     // End of variables declaration//GEN-END:variables
