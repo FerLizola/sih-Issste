@@ -480,7 +480,7 @@ public class Incapacidad extends javax.swing.JFrame {
         if(miCon!=null){
             try{
                 Statement stmt = miCon.createStatement();
-                String sql = "select * from Derechohabiente where RFC_Derechoh='"+a+"'";
+                String sql = "select * from Derechohabiente where RFC_Derechoh='"+a+"'";//
                 ResultSet r=stmt.executeQuery(sql);
                 if(r.next()){
                     txtName.setText(r.getString("Nombre_Derechoh"));
@@ -490,7 +490,7 @@ public class Incapacidad extends javax.swing.JFrame {
                     r=stmt.executeQuery(sql);
                     if(r.next()){
                         txtUM.setText(r.getString("Nombre_Clinica"));
-                    }
+                    }//DEJA QUE CARGUE LA CONEXX
                 }
                 if(!txtRFCMed.getText().equals(null)){
                     sql="select * from Personal where RFC_Personal='"+txtRFCMed.getText()+"'";
@@ -498,9 +498,9 @@ public class Incapacidad extends javax.swing.JFrame {
                     if(r.next()){
                         txtMedico.setText(r.getString("Nombre_Personal")+" "+r.getString("APaterno_Personal"));
                     }
-                
+                //243 306 950
                 }
-                miCon.close();
+                miCon.close();//SI, SE SUPONE QUE PARA ESO SON :S SI LO OCUPAS DE PERSONAL NADA MAS
                         
             }catch(Exception e){
         

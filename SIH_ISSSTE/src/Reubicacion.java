@@ -15,14 +15,33 @@ import javax.swing.JOptionPane;
  * @author abril
  */
 public class Reubicacion extends javax.swing.JFrame {
-    String puesto;
+    String puesto,rfc,clinica;
     /**
      * Creates new form Reubicacion
      */
     public Reubicacion() {
         initComponents();
+        clinica();
     }
-
+    void setRFC(String rfc){
+        this.rfc=rfc;
+    }
+    void clinica(){
+        Connection miCon=(new ConexionDB().conexion());
+        if(miCon!=null){
+            try{
+                Statement stmt = miCon.createStatement();
+            String sql = "Select * from Clinica";
+            ResultSet r= stmt.executeQuery(sql);
+            while(r.next()){
+                String consultorio= r.getString("Nombre_Clinica");
+                cmbClinicaR.addItem(consultorio+"");
+            }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,21 +205,28 @@ public class Reubicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRFCKeyTyped
 
     private void cmbClinicaRItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbClinicaRItemStateChanged
-        Connection miCon=(new ConexionDB().conexion());
-        if(miCon!=null){
-            try{
+        if(!cmbClinicaR.getSelectedItem().toString().equals("Seleccione clinica")){
+            Connection miCon=(new ConexionDB().conexion());
+             if(miCon!=null){
+                try{
                 Statement stmt = miCon.createStatement();
-        String sql = "Select * from Clinica";
-        ResultSet r= stmt.executeQuery(sql);
-        while(r.next()){
-            String consultorio= r.getString("id_Clinica");
-            cmbClinicaR.addItem(consultorio+"");
-        }
+                String sql = "Select * from Clinica where Nombre_Clinica='"+
+                        cmbClinicaR.getSelectedItem().toString()+"'";
+                ResultSet r= stmt.executeQuery(sql);
+                if(r.next()){
+                    clinica=""+r.getInt("id_Clinica");
+                    sql = "Select * from Consultorio where id_Clinica='"+clinica+"'";
+                    r= stmt.executeQuery(sql);
+                    while(r.next()){
+                    String consultorio= r.getString("NoConsultorio");
+                    cmbCons.addItem(consultorio+"");
+                }
+            }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error: "+e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+        }
     }//GEN-LAST:event_cmbClinicaRItemStateChanged
 
     /**
